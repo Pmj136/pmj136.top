@@ -1,0 +1,104 @@
+.main--pc {
+   flex: 1;
+   min-height: 86px;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+}
+
+.plot {
+   margin: 0 6px;
+   color: #b2bac2;
+}
+
+.info--pc {
+   color: #a3a7ac;
+   font-size: 0.8rem;
+}
+
+.info--pc:first-child {
+   text-decoration: none;
+}
+
+.info--pc:first-child:hover {
+   color: #3780f7;
+}
+
+.title-wrap--pc {
+   position: relative;
+   top: -4px;
+   font-size: 1.1rem;
+   width: 100%;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+}
+
+.title--pc {
+   text-decoration: none;
+   color: #333;
+   font-weight: 600;
+   letter-spacing: 0.6px;
+}
+
+.title--pc:hover {
+   text-decoration: underline;
+}
+
+.action-wrap--pc {
+   display: flex;
+}
+
+.action--pc {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border: 1px solid #edeeef;
+   border-radius: 1px;
+   padding: 4px 12px;
+   box-sizing: border-box;
+   color: #b3bac1;
+   font-size: 13px;
+   white-space: nowrap;
+   cursor: pointer;
+   text-decoration: none;
+}
+
+.action--pc:hover {
+   background-color: #f5f3f3;
+}
+
+
+.action--pc:nth-child(3) {
+   visibility: hidden;
+}
+
+.action--pc:first-child {
+   border-right: none;
+}
+
+.action--pc:nth-child(3) {
+   border-left: none;
+   padding: 4px 10px;
+}
+
+.action-num--pc {
+   margin-left: 4px;
+}
+
+.container:hover .action--pc:nth-child(3) {
+   visibility: visible;
+}
+
+.action-handle--pc {
+   top: 100%;
+   left: 0;
+}
+
+.el-image {
+   flex: none;
+   width: 70px;
+   height: 70px;
+   border-radius: 4px;
+   margin-left: 20px;
+}

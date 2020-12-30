@@ -1,0 +1,262 @@
+[class^=jiu-page--] {
+   min-height: calc(100vh - 90px);
+}
+
+.jiu-active {
+   color: #1a91ca !important;
+}
+
+.jiu-dynamic-wrap {
+   transition: width linear 0.3s;
+   width: $wrap-base-width;
+}
+
+.jiu-navigation {
+   position: sticky;
+   top: $app-header-height;
+   background-color: #ffffff;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
+   z-index: 1500;
+}
+
+.jiu-sticky-box {
+   position: sticky;
+   transition: top linear 0.3s
+}
+
+
+/*card*/
+.jiu-card {
+   background-color: #fff;
+   margin: 15px 0;
+   box-sizing: border-box;
+   border-radius: 4px;
+}
+
+.jiu-card-header {
+   padding: 14px 20px;
+   box-sizing: border-box;
+   border-bottom: 1px solid #EBEEF5;
+}
+
+.jiu-card-header--text {
+   letter-spacing: 1px;
+   user-select: none;
+}
+
+.jiu-card-body {
+   padding: 20px;
+   box-sizing: border-box;
+}
+
+/*end card*/
+
+/*list*/
+.jiu-list {
+   margin-block-start: 0;
+   margin-block-end: 0;
+   padding-inline-start: 0;
+   list-style: none;
+}
+
+.jiu-list-item {
+   border-bottom: 1px solid #eee;
+}
+
+.jiu-list > .jiu-list-item:last-child {
+   border-bottom: none;
+}
+
+/*end list*/
+
+/*navs*/
+.jiu-navs {
+   display: flex;
+   overflow-x: auto;
+   height: 3rem;
+}
+
+.jiu-navs-item {
+   width: 5.5rem;
+   display: flex;
+   flex: none;
+   justify-content: center;
+   align-items: center;
+   cursor: pointer;
+   user-select: none;
+}
+
+/*end navs*/
+
+/*nav*/
+.jiu-nav {
+   height: 2.6rem;
+   display: flex;
+   align-items: center;
+   overflow-x: auto;
+   margin-block-start: 0;
+   margin-block-end: 0;
+   padding-inline-start: 0;
+   list-style: none;
+}
+
+.jiu-nav-item {
+   font-size: 0.96rem;
+   margin: 0 1.2rem;
+   cursor: pointer;
+   white-space: nowrap;
+   user-select: none;
+}
+
+.jiu-nav-item:hover {
+   color: #1a91ca;
+}
+
+/*end nav*/
+
+
+/*button*/
+.jiu-button {
+   flex: 0 0 auto;
+   padding: 0;
+   width: 3.4rem;
+   height: 1.6rem;
+   font-size: 0.8rem;
+   border-radius: 2px;
+   outline: none;
+   cursor: pointer;
+   transition: background-color 0.1s linear;
+}
+
+.jiu-button:active {
+   opacity: 0.8;
+}
+
+.jiu-button--default {
+   color: #37c701;
+   background-color: #fff;
+   border: 1px solid #37c701;
+}
+
+.jiu-button--primary {
+   background-color: #1a91ca;
+   border: 1px solid #1a91ca;
+   color: #f8f1f1;
+}
+
+.jiu-button--success {
+   background-color: #6cbd45;
+   color: #fff;
+   border: 1px solid #6cbd45;
+}
+
+.jiu-button--remind {
+   background-color: #DEA041;
+   color: #fff;
+   border: 1px solid #DEA041;
+}
+
+/*end button*/
+
+/*title*/
+.jiu-title {
+   border-left: 4px solid #d93636;
+   line-height: 1;
+   letter-spacing: 0.5px;
+   user-select: none;
+}
+
+.jiu-title--text {
+   margin-left: 8px;
+   line-height: 1;
+   font-size: 1.1rem;
+}
+
+/*end title*/
+
+/*setting-list*/
+.setting-list-item {
+   display: flex;
+   align-items: center;
+   padding: 1.5rem 0;
+   border-top: 1px solid #f1f1f1;
+   box-sizing: border-box;
+}
+
+.setting-list-item--title {
+   font-size: 1rem;
+   color: #333;
+   width: 8rem;
+}
+
+.setting-list-item--content {
+   display: flex;
+   justify-content: space-between;
+   flex: 1;
+}
+
+/*split-list*/
+.jiu-split-list {
+   display: flex;
+   user-select: none;
+   margin-block-start: 0;
+   margin-block-end: 0;
+   padding-inline-start: 0;
+   list-style: none;
+}
+
+.jiu-split-list-item {
+   cursor: pointer;
+   padding: 0 16px;
+   box-sizing: border-box;
+   position: relative;
+   font-size: 0.96rem;
+}
+
+.jiu-split-list-item:first-child {
+   padding-left: 0;
+}
+
+.jiu-split-list-item:last-child {
+   padding-right: 0;
+}
+
+.jiu-split-list-item:after {
+   content: "|";
+   position: absolute;
+   right: -3px;
+   color: #dddeee;
+}
+
+.jiu-split-list-item:last-child:after {
+   content: "";
+}
+
+/*end split-list*/
+@media (max-width: 600px) {
+   .setting-list-item {
+      flex-direction: column;
+      align-items: flex-start;
+   }
+   .setting-list-item--content {
+      width: 100%;
+   }
+   .setting-list-item--title {
+      margin-bottom: 1rem;
+   }
+}
+
+@media all and (max-width: $wrap-width-1-trigger) {
+   .jiu-dynamic-wrap {
+      width: $wrap-width-1;
+   }
+}
+
+@media all and (max-width: $wrap-width-2-trigger) {
+   .jiu-dynamic-wrap {
+      width: $wrap-width-2;
+   }
+}

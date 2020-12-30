@@ -1,0 +1,25 @@
+/*fix mavon-editor的cssbug*/
+::v-deep .v-note-wrapper .v-note-panel .v-note-show .v-show-content {
+   padding: 0;
+}
+
+::v-deep .v-note-wrapper > .v-note-op {
+   box-sizing: border-box;
+}
+
+::v-deep .v-note-wrapper {
+   z-index: 1000;
+}
+
+::v-deep .v-note-wrapper.fullscreen {
+   z-index: 2000;
+}
+
+::v-deep .v-note-wrapper .v-note-panel .v-note-edit.divarea-wrapper .content-input-wrapper {
+   box-sizing: border-box;
+}
+
+
+::v-deep .el-dropdown-menu__item {
+   white-space: nowrap;
+}

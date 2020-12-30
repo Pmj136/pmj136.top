@@ -1,0 +1,40 @@
+.msg-container {
+   padding: 15px 20px;
+   box-sizing: border-box;
+}
+
+.post-info {
+   display: flex;
+   justify-content: space-between;
+   font-size: 0.9rem;
+   color: #888;
+   margin-bottom: .6rem;
+}
+
+.info-wrap {
+   display: flex;
+   align-items: center;
+}
+
+.user-nick {
+   text-decoration: none;
+   color: #3399ea;
+   margin-left: .5rem;
+}
+.user-nick:hover {
+   text-decoration: underline;
+}
+
+.item-type {
+   margin: 0 1rem 0 .2rem;
+}
+
+.article-title {
+   cursor: pointer;
+   letter-spacing: 1px;
+   font-weight: bold;
+}
+
+.article-title:hover {
+   text-decoration: underline;
+}

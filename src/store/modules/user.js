@@ -1,5 +1,6 @@
 import {login, auth, logout} from '@/api/user'
 import Storage from "@/utils/localStorage"
+import jsCookie from "@/utils/jsCookie";
 
 const state = {
     info: Storage.get("info") || {}
@@ -12,6 +13,7 @@ const mutations = {
 const actions = {
     reset({commit}) {
         Storage.clear()
+        jsCookie.del("token")
         commit("SET_INFO", {})
     },
     async login({commit}, data) {
@@ -25,17 +27,11 @@ const actions = {
         }
     },
     async auth({commit, dispatch}) {
-        try {
-            const res = await auth()
-            if (res.data) {
-                commit("SET_INFO", res.data)
-                Storage.set("info", res.data)
-            } else throw  res
-            return Promise.resolve(res)
-        } catch (e) {
-            dispatch("reset")
-            return Promise.reject(e)
-        }
+        const res = await auth()
+        if (res.data) {
+            commit("SET_INFO", res.data)
+            Storage.set("info", res.data)
+        } else dispatch("reset")
     },
     async logout({dispatch}) {
         try {

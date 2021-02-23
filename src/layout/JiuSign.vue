@@ -35,7 +35,6 @@
         <el-button style="width: 100%" type="info" @click="login('zm')" :loading=isLoginIng>{{ loginBtnText }}</el-button>
         <div class="extra-action">
           <span @click="loginType='em'" class="normal-link">免密登录</span>
-          <router-link class="normal-link" tag="a" to="/web/forgot" target="_blank">忘记密码</router-link>
         </div>
       </el-form-item>
       <el-form-item>
@@ -267,9 +266,7 @@ export default {
 }
 
 .extra-action {
-  display: flex;
   margin-top: 4px;
-  justify-content: space-between;
 }
 
 .other-auth {

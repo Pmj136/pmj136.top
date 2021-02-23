@@ -16,7 +16,10 @@
             :modal-append-to-body="false"
             :close-on-click-modal="false">
           <el-form :model="form" ref="form" :rules="emRules" size="medium" style="width: 100%">
-            <el-form-item prop="email" :rules="[{ required: true, message: '昵称不能为空'},{max:12,message:'昵称不能超过12位'}]" :error="errEmail">
+            <el-form-item
+                prop="email"
+                :rules="[{ required: true, message: '邮箱不能为空',trigger: 'change'},{type: 'email', message: '请输入正确的邮箱地址', trigger: 'change'}]"
+                :error="errEmail">
               <el-autocomplete
                   style="width: 100%"
                   ref="email"
@@ -226,9 +229,9 @@ export default {
         inputErrorMessage: '不能为空'
       }).then(({value}) => {
         updatePwd({password: md5(value)}).then(res => {
-            this.$router.replace("/")
-            this.$store.dispatch("user/reset")
-            Msg.tip(res.msg)
+          this.$router.replace("/")
+          this.$store.dispatch("user/reset")
+          Msg.tip(res.msg)
         })
       }).catch(() => {
       });

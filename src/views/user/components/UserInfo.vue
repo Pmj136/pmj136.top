@@ -67,17 +67,16 @@ export default {
   methods: {
     handleNoticeAction() {
       const params = {
-        notice_id: +this.$store.state.user.info.id,
         target_id: this.item.id,
       }
       if (this.item.is_notice) {
-        cancelNotice(params).then(res => {
+        cancelNotice(params).then(() => {
           this.item.is_notice = 0
-        })
+        }).catch(()=>{})
       } else {
-        addNotice(params).then(res => {
+        addNotice(params).then(() => {
           this.item.is_notice = 1
-        })
+        }).catch(()=>{})
       }
     }
   }

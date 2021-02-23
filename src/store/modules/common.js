@@ -6,7 +6,7 @@ const state = {
         notice_count: 0,
         remark_count: 0,
         star_count: 0
-    }
+    },
 };
 const mutations = {
     SET_AUTHOR_ID(state, value) {

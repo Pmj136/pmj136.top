@@ -12,6 +12,6 @@ export default {
     del(key) {
         const date = new Date();
         date.setTime(date.getTime() - 10000);
-        document.cookie = key + "=;domain=pmj136.top;path=/;expires=" + date.toUTCString();
+        document.cookie = key + "=;domain=localhost;path=/;expires=" + date.toUTCString();
     },
 };

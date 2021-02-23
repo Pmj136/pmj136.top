@@ -12,8 +12,7 @@ export default {
     }
   },
   beforeCreate() {
-    this.$store.dispatch("user/auth").catch(e => {
-    })
+    this.$store.dispatch("user/auth")
   },
   mounted() {
     window.addEventListener("resize", this.resizeHandler);

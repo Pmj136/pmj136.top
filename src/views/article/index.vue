@@ -11,7 +11,7 @@
       </ul>
     </nav>
     <jiu-react-box>
-      <scroll-list :type="currentArticleType"/>
+      <scroll-list/>
       <template #extra>
         <hot-tags :data="allData.hot_tags"/>
         <sign-in :info="allData.sign_info"/>
@@ -50,7 +50,11 @@ export default {
         friend_links: [],
         sign_info: null,
       },
-      currentArticleType: -1
+    }
+  },
+  computed: {
+    currentArticleType() {
+      return this.$store.state.article.type
     }
   },
   beforeMount() {
@@ -69,7 +73,7 @@ export default {
     toggleArticleType(value) {
       if (this.currentArticleType === value) return
       window.scrollTo(0, 0)
-      this.currentArticleType = value
+      this.$store.dispatch("article/setType", value)
     },
     scrollInstance() {
       const sc = this.$refs.bottom.$el.getBoundingClientRect().bottom

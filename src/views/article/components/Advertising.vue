@@ -8,7 +8,7 @@
         QQ:1367559786
       </div>
       <div class="mine">
-        WX:Sweet_case
+        VX:Sweet_case
       </div>
     </div>
   </div>

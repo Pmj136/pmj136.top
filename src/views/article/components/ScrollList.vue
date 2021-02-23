@@ -2,9 +2,10 @@
   <div class="jiu-card">
     <div class="jiu-card-header">
       <ul class="jiu-split-list">
-        <li :class="[{'jiu-active':order===1},'jiu-split-list-item']" @click="order=1">最新</li>
-        <li :class="[{'jiu-active':order===2},'jiu-split-list-item']" @click="order=2">热门</li>
-        <li v-if="isLogin" :class="[{'jiu-active':order===3},'jiu-split-list-item']" @click="order=3">关注</li>
+        <li :class="[{'jiu-active':order===1},'jiu-split-list-item']" @click="handleOrderChange(1)">最新</li>
+        <li :class="[{'jiu-active':order===2},'jiu-split-list-item']" @click="handleOrderChange(2)">热门</li>
+        <li v-if="isLogin" :class="[{'jiu-active':order===3},'jiu-split-list-item']" @click="handleOrderChange(3)">关注
+        </li>
       </ul>
     </div>
     <ul class="jiu-list" v-if="total>0">
@@ -24,6 +25,7 @@ import JiuArticleItem from "@/components/JiuArticleItem"
 import JiuLoad from "@/components/JiuLoad"
 import {getList} from "@/api/article";
 
+const {mapState} = Vuex
 export default {
   components: {
     JiuLoad,
@@ -35,20 +37,15 @@ export default {
       size: 18,
       total: 0,
       list: [],
-      order: 1,//排序方式  1:最新 2:热门 3:关注
-      isFetch: false
-    }
-  },
-  props: {
-    type: {
-      type: Number,
-      default: -1
+      isFetch: false,
     }
   },
   computed: {
-    isLogin() {
-      return !!this.$store.state.user.info.id
-    }
+    ...mapState({
+      isLogin: state => state.user.info.id,
+      type: state => state.article.type,
+      order: state => state.article.order //排序方式  1:最新 2:热门 3:关注
+    }),
   },
   watch: {
     type() {
@@ -74,6 +71,10 @@ export default {
     handleLoadMore() {
       this.page++
       this.fetchList()
+    },
+    handleOrderChange(val) {
+      if (this.order === val) return
+      this.$store.dispatch("article/setOrder", val)
     },
     async fetchList() {
       try {

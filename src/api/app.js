@@ -13,8 +13,3 @@ export function appMd() {
         method: "get",
     })
 }
-
-
-
-
-

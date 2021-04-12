@@ -8,7 +8,7 @@
         QQ:1367559786
       </div>
       <div class="mine">
-        VX:Sweet_case
+        pengmingjiu@gmail.com
       </div>
     </div>
   </div>

@@ -23,7 +23,6 @@ import JiuLoad from "@/components/JiuLoad/index"
 import {search} from "@/api/article";
 import {ScrollBottomListener} from "@/utils/ScrollHandler"
 
-let scrollHandler = new ScrollBottomListener();
 export default {
     components: {
         JiuLoad,
@@ -36,7 +35,8 @@ export default {
             pageIndex: 1,
             pageSize: 18,
             total: 0,
-            isFetch: false
+            isFetch: false,
+            scrollHandler: null
         }
     },
     computed: {
@@ -65,15 +65,16 @@ export default {
     },
     created() {
         this.fetchList()
-        scrollHandler.registerListener(() => {
+        this.scrollHandler = new ScrollBottomListener(() => {
             if (this.total === this.list.length) return Promise.reject()
             this.pageIndex++
             return this.fetchList()
-        })
+        });
+        this.scrollHandler.registerListener()
     },
     beforeDestroy() {
-        scrollHandler.removeListener()
-        scrollHandler = null
+        this.scrollHandler.removeListener()
+        this.scrollHandler = null
     },
     methods: {
         del(i) {

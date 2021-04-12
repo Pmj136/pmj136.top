@@ -39,10 +39,8 @@ import JiuUserItem from "@/components/JiuUserItem/index"
 import JiuLoad from "@/components/JiuLoad"
 import {getDetail, getDynamics} from "@/api/user";
 
-import {ScrollBottomListener, NormalListener} from "@/utils/ScrollHandler"
+import {ScrollBottomListener} from "@/utils/ScrollHandler"
 
-let scrollHandler = new ScrollBottomListener();
-let normalListener = new NormalListener();
 export default {
     components: {
         JiuReactBox,
@@ -63,7 +61,8 @@ export default {
             isFetch: false,
             user: {},
             isScrollLow: false,
-            activeIndex: 1
+            activeIndex: 1,
+            scrollHandler: null
         }
     },
     computed: {
@@ -101,25 +100,28 @@ export default {
     },
     created() {
         this.fetchUserData()
-        scrollHandler.registerListener(() => {
+        this.scrollHandler = new ScrollBottomListener(() => {
             if (this.total === this.list.length) return Promise.reject()
             this.page++
             return this.fetchDynamics()
-        })
-        normalListener.registerListener(() => {
+        });
+        this.scrollHandler.registerListener()
+    },
+    mounted() {
+        window.addEventListener("scroll", this._normalHandler);
+    },
+    beforeDestroy() {
+        this.scrollHandler.removeListener()
+        this.scrollHandler = null
+        window.removeEventListener('scroll', this._normalHandler);
+    },
+    methods: {
+        _normalHandler() {
             const sc = this.$refs.listNav.$el.getBoundingClientRect().top
             if (sc < 0 && !this.isScrollLow)
                 this.isScrollLow = true
             if (sc > 0 && this.isScrollLow) this.isScrollLow = false
-        })
-    },
-    beforeDestroy() {
-        scrollHandler.removeListener()
-        normalListener.removeListener()
-        scrollHandler = null
-        normalListener = null
-    },
-    methods: {
+        },
         del(index) {
             this.list.splice(index, 1)
             this.total--

@@ -27,7 +27,6 @@ import JiuLoad from "@/components/JiuLoad"
 import {getList} from "@/api/article";
 import {ScrollBottomListener} from "@/utils/ScrollHandler"
 
-let scrollHandler = new ScrollBottomListener();
 const {mapState} = Vuex
 export default {
     components: {
@@ -41,6 +40,7 @@ export default {
             total: 0,
             list: [],
             isFetch: false,
+            scrollHandler: null
         }
     },
     computed: {
@@ -60,15 +60,16 @@ export default {
     },
     created() {
         this.initData()
-        scrollHandler.registerListener(() => {
+        this.scrollHandler = new ScrollBottomListener(() => {
             if (this.total === this.list.length) return Promise.reject()
             this.page++
             return this.fetchList()
         })
+        this.scrollHandler.registerListener()
     },
     beforeDestroy() {
-        scrollHandler.removeListener()
-        scrollHandler = null
+        this.scrollHandler.removeListener()
+        this.scrollHandler = null
     },
     methods: {
         initData() {

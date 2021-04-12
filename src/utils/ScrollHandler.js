@@ -1,43 +1,29 @@
 export class ScrollBottomListener {
-    constructor(offset = 200) {
+    constructor(cb) {
         this.isLoading = false
-        this.offset = offset
+        this.offset =200
+        this.cb = cb
     }
 
-    scrollToBottom(callback) {
-        let t = document.documentElement.scrollTop;
-        let h = document.documentElement.clientHeight;
-        let xv = document.body.scrollHeight - this.offset;
-
-        if (t + h >= xv && !this.isLoading) {
+    scrollToBottom() {
+        const raw = document.documentElement || document.body
+        const wh = raw.clientHeight,
+            dh = raw.scrollHeight,
+            sh = raw.scrollTop
+        if (wh + sh >= dh - this.offset && !this.isLoading) {
             this.isLoading = true
-            callback().then(() => {
+            this.cb().then(() => {
                 this.isLoading = false
             }).catch(e => {
             })
         }
     }
 
-    registerListener(callback) {
-        window.addEventListener("scroll", this.scrollToBottom.bind(this, callback), false);
+    registerListener() {
+        window.addEventListener("scroll", this.scrollToBottom.bind(this));
     }
 
     removeListener() {
-        window.removeEventListener('scroll', this.scrollToBottom, false);
+        window.removeEventListener('scroll', this.scrollToBottom.bind(this));
     }
 }
-
-export class NormalListener {
-    scrollToTarget(callback) {
-        callback()
-    }
-
-    registerListener(callback) {
-        window.addEventListener("scroll", this.scrollToTarget.bind(this, callback), false);
-    }
-
-    removeListener() {
-        window.removeEventListener('scroll', this.scrollToTarget, false);
-    }
-}
-

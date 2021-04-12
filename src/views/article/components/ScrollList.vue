@@ -53,9 +53,11 @@ export default {
     watch: {
         type() {
             this.initData()
+            this.scrollHandler.isLoading = false
         },
         order() {
             this.initData()
+            this.scrollHandler.isLoading = false
         },
     },
     created() {

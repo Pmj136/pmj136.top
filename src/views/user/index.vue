@@ -56,7 +56,7 @@ export default {
         return {
             list: [],
             page: 1,
-            size: 20,
+            size: 14,
             total: 0,
             isFetch: false,
             user: {},
@@ -90,12 +90,13 @@ export default {
             this.page = 1
             this.list = []
             this.fetchUserData()
+            this.scrollHandler.isLoading = false
         },
         activeIndex() {
             this.page = 1
             this.list = []
-            this.fetchDynamics().catch(() => {
-            })
+            this.fetchDynamics().catch(() => {})
+            this.scrollHandler.isLoading = false
         }
     },
     created() {

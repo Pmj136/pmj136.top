@@ -4,7 +4,6 @@ export class ScrollBottomListener {
         this.offset =200
         this.cb = cb
     }
-
     scrollToBottom() {
         const raw = document.documentElement || document.body
         const wh = raw.clientHeight,

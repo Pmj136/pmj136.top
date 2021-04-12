@@ -56,10 +56,10 @@ export default {
     watch: {
         watchVal(v) {
             if (v.keyword.trim() !== "") {
+                this.scrollHandler.isLoading = false
                 this.pageIndex = 1
                 this.list = []
-                this.fetchList().catch(() => {
-                })
+                this.fetchList().catch(() => {})
             }
         }
     },

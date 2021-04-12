@@ -43,7 +43,7 @@ module.exports = {
             })
             .end();
         config.plugin("html").tap(args => {
-            args[0].title = "久久社区";
+            args[0].title = "猿社区";
             return args;
         });
     }

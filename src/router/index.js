@@ -20,7 +20,7 @@ const routes = [
                 path: '/',
                 component: () => import("@/views/article/index"),
                 meta: {
-                    title: "久久社区 - 首页",
+                    title: "猿社区 - 首页",
                     verify: false,
                 }
             },
@@ -43,7 +43,7 @@ const routes = [
                 path: 'music',
                 component: () => import("@/views/music"),
                 meta: {
-                    title: "久久社区 - 音乐",
+                    title: "猿社区 - 音乐",
                     verify: false,
                 }
             },
@@ -51,7 +51,7 @@ const routes = [
                 path: 'feed',
                 component: () => import("@/views/feed"),
                 meta: {
-                    title: "久久社区 - 投喂",
+                    title: "猿社区 - 投喂",
                     verify: false,
                 }
             },

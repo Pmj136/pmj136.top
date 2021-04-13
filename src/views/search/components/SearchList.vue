@@ -3,17 +3,18 @@
         <div class="jiu-card-header">
             <span>搜索结果</span>
         </div>
-        <ul class="jiu-list">
-            <li class="jiu-list-item" v-for="(item,index) in list" :key="index">
-                <jiu-article-item v-if="item.t===1" :item="item" @del="del(index)"/>
-                <jiu-user-item v-else :item="item"/>
-            </li>
-        </ul>
-
-        <jiu-load
+        <JiuReachBottom
             :is-fetch="isFetch"
             :total="total"
-            :current-data-size="list.length"/>
+            :current-data-size="list.length"
+            :on-scroll-bottom="loadMore">
+            <ul class="jiu-list">
+                <li class="jiu-list-item" v-for="(item,index) in list" :key="index">
+                    <jiu-article-item v-if="item.t===1" :item="item" @del="del(index)"/>
+                    <jiu-user-item v-else :item="item"/>
+                </li>
+            </ul>
+        </JiuReachBottom>
     </div>
 </template>
 <script>
@@ -21,13 +22,14 @@ import JiuArticleItem from "@/components/JiuArticleItem/index"
 import JiuUserItem from "@/components/JiuUserItem/index"
 import JiuLoad from "@/components/JiuLoad/index"
 import {search} from "@/api/article";
-import {ScrollBottomListener} from "@/utils/ScrollHandler"
+import JiuReachBottom from "@/components/JiuReachBottom"
 
 export default {
     components: {
         JiuLoad,
         JiuArticleItem,
-        JiuUserItem
+        JiuUserItem,
+        JiuReachBottom
     },
     data() {
         return {
@@ -36,7 +38,6 @@ export default {
             pageSize: 18,
             total: 0,
             isFetch: false,
-            scrollHandler: null
         }
     },
     computed: {
@@ -56,27 +57,22 @@ export default {
     watch: {
         watchVal(v) {
             if (v.keyword.trim() !== "") {
-                this.scrollHandler.isLoading = false
                 this.pageIndex = 1
                 this.list = []
-                this.fetchList().catch(() => {})
+                this.fetchList().catch(() => {
+                })
             }
         }
     },
     created() {
         this.fetchList()
-        this.scrollHandler = new ScrollBottomListener(() => {
+    },
+    methods: {
+        loadMore() {
             if (this.total === this.list.length) return Promise.reject()
             this.pageIndex++
             return this.fetchList()
-        });
-        this.scrollHandler.registerListener()
-    },
-    beforeDestroy() {
-        this.scrollHandler.removeListener()
-        this.scrollHandler = null
-    },
-    methods: {
+        },
         del(i) {
             this.total--
             this.list.splice(i, 1)

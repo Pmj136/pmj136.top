@@ -9,29 +9,32 @@
                 </li>
             </ul>
         </div>
-        <ul class="jiu-list" v-if="total>0">
-            <li class="jiu-list-item" v-for="(item,index) in list" :key="index">
-                <jiu-article-item :item="item" @del="del(index)"/>
-            </li>
-        </ul>
 
-        <jiu-load
+        <JiuReachBottom
             :is-fetch="isFetch"
             :total="total"
-            :current-data-size="list.length"/>
+            :current-data-size="list.length"
+            :on-scroll-bottom="loadMore">
+            <ul class="jiu-list" v-if="total>0">
+                <li class="jiu-list-item" v-for="(item,index) in list" :key="index">
+                    <jiu-article-item :item="item" @del="del(index)"/>
+                </li>
+            </ul>
+        </JiuReachBottom>
     </div>
 </template>
 <script>
 import JiuArticleItem from "@/components/JiuArticleItem"
 import JiuLoad from "@/components/JiuLoad"
 import {getList} from "@/api/article";
-import {ScrollBottomListener} from "@/utils/ScrollHandler"
+import JiuReachBottom from "@/components/JiuReachBottom"
 
 const {mapState} = Vuex
 export default {
     components: {
         JiuLoad,
-        JiuArticleItem
+        JiuArticleItem,
+        JiuReachBottom
     },
     data() {
         return {
@@ -40,7 +43,6 @@ export default {
             total: 0,
             list: [],
             isFetch: false,
-            scrollHandler: null
         }
     },
     computed: {
@@ -53,27 +55,20 @@ export default {
     watch: {
         type() {
             this.initData()
-            this.scrollHandler.isLoading = false
         },
         order() {
             this.initData()
-            this.scrollHandler.isLoading = false
         },
     },
     created() {
         this.initData()
-        this.scrollHandler = new ScrollBottomListener(() => {
+    },
+    methods: {
+        loadMore() {
             if (this.total === this.list.length) return Promise.reject()
             this.page++
             return this.fetchList()
-        })
-        this.scrollHandler.registerListener()
-    },
-    beforeDestroy() {
-        this.scrollHandler.removeListener()
-        this.scrollHandler = null
-    },
-    methods: {
+        },
         initData() {
             this.list = []
             this.page = 1

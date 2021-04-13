@@ -7,17 +7,18 @@
             <user-info :item="user"/>
             <div class="jiu-card">
                 <list-nav ref="listNav" :active.sync="activeIndex" :user-id="user?user.id:0"/>
-                <ul class="jiu-list">
-                    <li class="jiu-list-item" v-for="(item,index) in list" :key="index">
-                        <jiu-user-item v-if="item.id" :item="item"/>
-                        <jiu-article-item v-else :item="item" @del="del(index)"/>
-                    </li>
-                </ul>
-
-                <jiu-load
+                <JiuReachBottom
                     :is-fetch="isFetch"
                     :total="total"
-                    :current-data-size="list.length"/>
+                    :current-data-size="list.length"
+                    :on-scroll-bottom="loadMore">
+                    <ul class="jiu-list">
+                        <li class="jiu-list-item" v-for="(item,index) in list" :key="index">
+                            <jiu-user-item v-if="item.id" :item="item"/>
+                            <jiu-article-item v-else :item="item" @del="del(index)"/>
+                        </li>
+                    </ul>
+                </JiuReachBottom>
             </div>
             <template #extra>
                 <div class="jiu-sticky-box" :style="{'top':isScrollLow?'7.6rem':'4.6rem'}">
@@ -37,9 +38,8 @@ import ListNav from "./components/ListNav"
 import JiuArticleItem from "@/components/JiuArticleItem"
 import JiuUserItem from "@/components/JiuUserItem/index"
 import JiuLoad from "@/components/JiuLoad"
+import JiuReachBottom from "@/components/JiuReachBottom"
 import {getDetail, getDynamics} from "@/api/user";
-
-import {ScrollBottomListener} from "@/utils/ScrollHandler"
 
 export default {
     components: {
@@ -50,7 +50,8 @@ export default {
         UserRelation,
         JiuArticleItem,
         JiuUserItem,
-        JiuLoad
+        JiuLoad,
+        JiuReachBottom
     },
     data() {
         return {
@@ -62,7 +63,6 @@ export default {
             user: {},
             isScrollLow: false,
             activeIndex: 1,
-            scrollHandler: null
         }
     },
     computed: {
@@ -90,30 +90,21 @@ export default {
             this.page = 1
             this.list = []
             this.fetchUserData()
-            this.scrollHandler.isLoading = false
         },
         activeIndex() {
             this.page = 1
             this.list = []
-            this.fetchDynamics().catch(() => {})
-            this.scrollHandler.isLoading = false
+            this.fetchDynamics().catch(() => {
+            })
         }
     },
     created() {
         this.fetchUserData()
-        this.scrollHandler = new ScrollBottomListener(() => {
-            if (this.total === this.list.length) return Promise.reject()
-            this.page++
-            return this.fetchDynamics()
-        });
-        this.scrollHandler.registerListener()
     },
     mounted() {
         window.addEventListener("scroll", this._normalHandler);
     },
     beforeDestroy() {
-        this.scrollHandler.removeListener()
-        this.scrollHandler = null
         window.removeEventListener('scroll', this._normalHandler);
     },
     methods: {
@@ -122,6 +113,11 @@ export default {
             if (sc < 0 && !this.isScrollLow)
                 this.isScrollLow = true
             if (sc > 0 && this.isScrollLow) this.isScrollLow = false
+        },
+        loadMore() {
+            if (this.total === this.list.length) return Promise.reject()
+            this.page++
+            return this.fetchDynamics()
         },
         del(index) {
             this.list.splice(index, 1)

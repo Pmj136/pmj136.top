@@ -23,7 +23,11 @@ export const oauthUrl = {
         "?appid=dingoaive5bh1vdijmpzcw" +
         "&response_type=code" +
         "&scope=snsapi_login" +
-        "&redirect_uri=https://api.pmj136.top/oauth/dingtalk/callback"
+        "&redirect_uri=https://api.pmj136.top/oauth/dingtalk/callback",
+    "qq":"https://graph.qq.com/oauth2.0/authorize?response_type=code" +
+        "&client_id=101943695" +
+        "&redirect_uri=https://api.pmj136.top/oauth/qq/callback" +
+        "&state=jiu_key"
 }
 export const emailSuffix = [
     "@qq.com",

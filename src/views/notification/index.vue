@@ -80,7 +80,8 @@ export default {
         }
     },
     created() {
-        this.queryMsg()
+        this.queryMsg().catch(() => {
+        })
     },
     computed: {
         type() {
@@ -91,10 +92,14 @@ export default {
         }
     },
     watch: {
-        type() {
+        type(v) {
             this.pageIndex = 1
             this.list = []
-            this.queryMsg()
+            this.queryMsg().catch(() => {
+            })
+            if (v === 'notice') {
+                this.$store.dispatch("common/clearMsgCount", "notice_count")
+            }
         },
     },
     methods: {

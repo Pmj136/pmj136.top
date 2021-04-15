@@ -7,7 +7,7 @@
       <router-view/>
     </main>
     <footer class="jiu-footer">
-      <p>Copyright (2019-2020) PengMingJiu All rights reserved.</p>
+      <p>Copyright (2019-2021) PengMingJiu All rights reserved.</p>
       <span>赣ICP备号20004413号-1</span>
     </footer>
     <jiu-sign/>

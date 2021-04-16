@@ -104,6 +104,7 @@
             <el-form-item>
                 <div class="other-auth">
                     <span style="font-size: 1rem">推荐社交账号登录</span>
+                    <svg-icon class="svg" icon="qq" @click="oauthLogin('qq')"/>
                     <svg-icon class="svg" icon="github" @click="oauthLogin('github')"/>
                     <svg-icon class="svg" icon="gitee" @click="oauthLogin('gitee')"/>
                     <svg-icon class="svg" icon="dingtalk" @click="oauthLogin('dingtalk')"/>

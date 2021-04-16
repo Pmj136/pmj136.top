@@ -24,7 +24,6 @@
 <script>
 import {mavonEditor} from 'mavon-editor'
 import {uploadImg, delImg} from "@/api/article"
-import Msg from "@/utils/message"
 import 'mavon-editor/dist/css/index.css'
 
 export default {

@@ -84,8 +84,12 @@
         <li class="setting-list-item">
             <span class="setting-list-item--title">QQ</span>
             <div class="setting-list-item--content">
-                <span class="value-wrap" :class="{'value-bold':!!info.qq_nick}">{{ info.qq_nick || '绑定QQ' }}</span>
-                <span class="action" v-if="!info.qq_nick" @click="handleBind(!!info.qq_nick,'qq')">绑定</span>
+                <span class="value-wrap" :class="{'value-bold':!!info.qq_nick}">{{
+                        info.qq_nick || '绑定QQ'
+                    }}</span>
+                <span class="action" @click="handleBind(!!info.qq_nick,'qq')">{{
+                        !!info.qq_nick ? '解绑' : '绑定'
+                    }}</span>
             </div>
         </li>
         <li class="setting-list-item" v-if="info.email">
@@ -232,7 +236,8 @@ export default {
                 const types = {
                     'github': 1,
                     'gitee': 2,
-                    'dingtalk': 3
+                    'dingtalk': 3,
+                    'qq': 4
                 }
                 unbind({type: types[key]}).then(res => {
                     this.info[key + '_nick'] = null

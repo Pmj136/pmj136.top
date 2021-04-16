@@ -2,12 +2,12 @@ import Msg from './message'
 import Storage from "@/utils/localStorage"
 import store from "@/store"
 
-const baseURL = process.env.NODE_ENV === "development"
-    ? "http://localhost:6891"
-    : "https://api.pmj136.top"
+// const baseURL = process.env.NODE_ENV === "development"
+//     ? "http://localhost:6891"
+//     : "https://api.pmj136.top"
 
-// const baseURL =
-//     "https://api.pmj136.top"
+const baseURL =
+    "https://api.pmj136.top"
 
 const request = axios.create({
     baseURL,
